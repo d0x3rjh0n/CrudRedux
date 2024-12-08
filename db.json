@@ -1,0 +1,64 @@
+{
+    "clients": [
+        {
+            "identifier": "asd123sd!",
+            "name": "jhon",
+            "email": "jhon@mgail.com",
+            "country": "Cuba"
+        },
+        {
+            "identifier": "bdf456tr!",
+            "name": "maria",
+            "email": "maria@gmail.com",
+            "country": "Mexico"
+        },
+        {
+            "identifier": "cde789uy!",
+            "name": "pedro",
+            "email": "pedro@yahoo.com",
+            "country": "Spain"
+        },
+        {
+            "identifier": "def012ij!",
+            "name": "ana",
+            "email": "ana@hotmail.com",
+            "country": "Brazil"
+        },
+        {
+            "identifier": "efe345kl!",
+            "name": "luis",
+            "email": "luis@outlook.com",
+            "country": "Argentina"
+        },
+        {
+            "identifier": "gfh678mn!",
+            "name": "sofia",
+            "email": "sofia@protonmail.com",
+            "country": "Chile"
+        },
+        {
+            "identifier": "ijk901op!",
+            "name": "juan",
+            "email": "juan@gmail.com",
+            "country": "Colombia"
+        },
+        {
+            "identifier": "lmn234qr!",
+            "name": "carla",
+            "email": "carla@yahoo.com",
+            "country": "Peru"
+        },
+        {
+            "identifier": "nop567st!",
+            "name": "raul",
+            "email": "raul@hotmail.com",
+            "country": "Ecuador"
+        },
+        {
+            "identifier": "puv890xz!",
+            "name": "laura",
+            "email": "laura@outlook.com",
+            "country": "Uruguay"
+        }
+    ]
+}
