@@ -41,7 +41,7 @@ const NewClient = () => {
             type: 'success',
             duration: 2000
         })
-        navigate('/home')
+        navigate('/')
         reset()
     })
 
