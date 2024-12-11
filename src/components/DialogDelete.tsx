@@ -13,9 +13,9 @@ const DialogDelete = ({ id }: Id) => {
     const [ deleteClient ] = useDeleteClientMutation()
     const dispatch = useDispatch()
     const modalStatus = useSelector(modalSelector)
-    const handleDelete = async (id: number) => {   
+    const handleDelete = async (id: string) => {   
         try {
-            await deleteClient({ id }).unwrap()
+            await deleteClient(id).unwrap()
             toaster.create({type: "success", title: 'Successfuly Operation'})
             dispatch(closeModal())
         } catch (error) {

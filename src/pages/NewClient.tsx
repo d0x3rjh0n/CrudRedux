@@ -10,7 +10,10 @@ import { MdOutlineAttachEmail } from "react-icons/md";
 import { useNavigate } from "react-router-dom"
 import { MdOutlineNumbers } from "react-icons/md";
 import { FaPhone } from "react-icons/fa6";
-
+import { useAddClientMutation } from "@/api/endpoints/clientEndpoints"
+import { generateId } from "@/helpers"
+import { Client } from '../types'
+import { toaster } from "@/components/ui/toaster"
 interface FormValues {
     name: string
     age: number
@@ -23,19 +26,33 @@ const schema = Yup.object().shape({
     name: Yup.string().required('Requided Field'),
     age: Yup.number().integer('Candela').min(0).max(120).required('Requided Field'),
     email: Yup.string().email('Invalid email').required('Requided Field'),
-    phone: Yup.string().required('Requided Field').min(0).max(8)
+    phone: Yup.string().required('Required Field').min(8, 'Must be at least 8 characters').max(15, 'Must be 15 characters or less'),
 })
 
 
 
 const NewClient = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm<FormValues>({ resolver: yupResolver(schema) })
+    const [addClient] = useAddClientMutation()
     const navigate = useNavigate()
-    const onSubmit = handleSubmit(() => {
-        navigate('/')
-        reset()
-    })
-
+    
+    const onSubmit = handleSubmit(async (data) => {
+        const newClient : Client = {
+            id: generateId(),
+            name : data.name,
+            age : data.age,
+            email : data.email,
+            phone : data.phone
+        };
+        try {
+            await addClient(newClient).unwrap();
+            toaster.create({type: 'success',title: 'Successfully added client'})
+            navigate('/');
+        } catch (error) {
+            console.error('Error adding client:', error);
+        }
+        reset();
+    });
     return (
         <Center md={{ height :'600px' }} height={'450px'}>
         <form onSubmit={onSubmit} style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>

@@ -1,10 +1,5 @@
-export interface ArrayData {
-    id: number;
-    [ key: string ]: string | number | boolean | object | undefined 
-}
-
-export interface Client extends ArrayData {
-    id: number
+export interface Client {
+    id: string
     name: string
     email: string
     age: number
@@ -12,7 +7,7 @@ export interface Client extends ArrayData {
 }
 
 export interface Id{
-    id:  number
+    id:  string
 }
 
 export interface ModalType {
