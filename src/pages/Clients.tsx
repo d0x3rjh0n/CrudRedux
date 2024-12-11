@@ -1,18 +1,16 @@
-import React, { Fragment, useEffect, useState } from "react";
-import type { RootState } from "../store";
-import { useDispatch, useSelector } from "react-redux";
+import { Fragment, useMemo, useState } from "react";
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { Box, Flex, IconButton, Input, Table, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, IconButton, Input, Table, Text } from "@chakra-ui/react";
 import { MdModeEditOutline } from "react-icons/md";
 import { InputGroup } from "../components/ui/input-group";
 import { IoIosSearch } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { MdRemoveRedEye } from "react-icons/md";
-import { aplyFilter } from "../features/globalFilter";
-import { Item } from '../features/globalFilter';
 import NoTableData from "../components/NoTableData";
 import DialogDelete from "@/components/DialogDelete";
+import { useGetClientsQuery } from "@/api/endpoints/clientEndpoints";
+import { Client } from "../types";
 
 const columns = [
     { accessorKey: 'Id', header: 'Id' },
@@ -22,19 +20,18 @@ const columns = [
 ];
 
 const Clients = () => {
-
-    const clients = useSelector((state: RootState) => state.clients.clients as Item[]);
-    const filteredClients = useSelector((state: RootState) => state.globalFilter.ArrayFilter as Item[]);
-
+    const { data: DataClient = [], isLoading: ClientLoading, error: ClientError } = useGetClientsQuery();
     const [inputFilter, setInputFilter] = useState<string>("");
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(aplyFilter({ ArrayToFilter: clients, globalFilter: inputFilter }));
-    }, [inputFilter, clients, dispatch]);
+    
+    const filteredData = useMemo(() => {
+        if (inputFilter) {
+            return DataClient?.filter( (client : Client) => client.name.toLowerCase().includes(inputFilter.toLocaleLowerCase()))
+        }
+        return DataClient
+    }, [inputFilter, DataClient])
 
     const table = useReactTable({
-        data: filteredClients.length > 0 ? filteredClients : clients,
+        data: filteredData || [],
         columns,
         getCoreRowModel: getCoreRowModel(),
     });
@@ -43,23 +40,24 @@ const Clients = () => {
         setInputFilter(e.target.value);
     };
 
-  
-
     const renderNoDataMessage = () => {
-        if (inputFilter && filteredClients.length === 0) {
+        if (inputFilter && filteredData.length === 0) {
             return <NoTableData>No results found for your search</NoTableData>;
         }
-
-        if (clients.length === 0) {
+        if (!DataClient || DataClient.length === 0) {
             return <NoTableData>You have not added any clients</NoTableData>;
         }
-
         return null;
     };
 
     const shouldRenderTableBody = () => {
-        return !(inputFilter && filteredClients.length === 0) && (clients.length > 0 || filteredClients.length > 0);
+        const hasFilteredClients = filteredData && filteredData.length > 0;
+        const hasDataClients = DataClient && DataClient.length > 0;
+        return !(inputFilter && !hasFilteredClients) && (hasDataClients || hasFilteredClients);
     };
+
+
+    if (ClientError) return <p>Error loading clients</p>;
 
     return (
         <Fragment>
@@ -71,7 +69,7 @@ const Clients = () => {
                         focusRing={'inside'}
                         focusRingColor={'purple.400'}
                         transition={'all'}
-                        placeholder="Search contacts"
+                        placeholder="Search clients for name"
                         value={inputFilter}
                         onChange={handleFilterChange}
                     />
@@ -79,9 +77,11 @@ const Clients = () => {
                 <Link to={'/newClient'}>
                     <IconButton variant={'solid'} colorPalette={'purple'} size={'lg'} rounded={'full'}><IoMdAdd /></IconButton>
                 </Link>
+                
             </Box>
 
-            <Table.ScrollArea borderWidth="1px" w="full" height={'450px'}>
+            <Table.ScrollArea borderWidth="1px" w="full" md={{ height: '650px'}} height={'450px'}>
+                
                 <Table.Root w={'100%'} size="md" border={'solid 1px'} shadow={'md'} borderColor={'gray.200'} borderRadius={'md'}>
                     <Table.Header>
                         {table.getHeaderGroups().map(headerGroup => (
@@ -103,7 +103,7 @@ const Clients = () => {
                         <Table.Body>
                             {table.getRowModel().rows.map(row => (
                                 <Table.Row key={row.id}>
-                                    <Table.Cell textAlign={'center'}>{row.original.id}</Table.Cell>
+                                    <Table.Cell textAlign={'center'}>{String(row.original.id)}</Table.Cell>
                                     <Table.Cell textAlign={'center'}>{String(row.original.name)}</Table.Cell>
                                     <Table.Cell textAlign={'center'}>{String(row.original.email)}</Table.Cell>
                                     <Table.Cell textAlign={'center'}>
@@ -125,7 +125,7 @@ const Clients = () => {
                                             rounded="full">
                                                 <MdModeEditOutline />
                                             </IconButton>
-                                            <DialogDelete id={row.original.id}/>
+                                            <DialogDelete id={String(row.original.id)}/>
                                         </Flex>
                                     </Table.Cell>
                                 </Table.Row>
@@ -135,7 +135,14 @@ const Clients = () => {
                         null
                     )}
                 </Table.Root>
-                {renderNoDataMessage()}
+                {ClientLoading ? (
+                        <Center w="full" h="80%">
+                            <p>Cargando</p>
+                        </Center>
+                    )
+                    :
+                    renderNoDataMessage()
+                }
             </Table.ScrollArea>
         </Fragment>
     );

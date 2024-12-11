@@ -1,13 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Item } from './globalFilter'
-
-export interface Client extends Item {
-    id: string
-    name: string
-    age: number
-    email: string
-}
+import { Client } from '../types'
 
 export interface ClientState {
     clients: Client[]
