@@ -7,9 +7,14 @@ export interface Client extends ArrayData {
     id: number
     name: string
     email: string
-    country: object
+    age: number
+    phone: string
 }
 
 export interface Id{
     id:  number
+}
+
+export interface ModalType {
+    value: boolean
 }

@@ -1,67 +1,12 @@
 {
-    "clients": [
-        {
-            "id": 1,
-            "name": "jhon",
-            "email": "jhon@mgail.com",
-            "country": "Cuba"
-        },
-        {
-            "id": 2,
-            "name": "maria",
-            "email": "maria@gmail.com",
-            "country": "Mexico"
-        },
-        {
-            "id": 3,
-            "name": "pedro",
-            "email": "pedro@yahoo.com",
-            "country": "Spain"
-        },
-        {
-            "id": 4,
-            "name": "ana",
-            "email": "ana@hotmail.com",
-            "country": "Brazil"
-        },
-        {
-            "id": 5,
-            "name": "luis",
-            "email": "luis@outlook.com",
-            "country": "Argentina"
-        },
-        {
-            "id": 6,
-            "name": "sofia",
-            "email": "sofia@protonmail.com",
-            "country": "Chile"
-        },
-        {
-            "id": 7,
-            "name": "juan",
-            "email": "juan@gmail.com",
-            "country": "Colombia"
-        },
-        {
-            "id": 8,
-            "name": "carla",
-            "email": "carla@yahoo.com",
-            "country": "Peru"
-        },
-        {
-            "id": 9,
-            "name": "raul",
-            "email": "raul@hotmail.com",
-            "country": "Ecuador"
-        },
-        {
-            "id": 10,
-            "name": "laura",
-            "email": "laura@outlook.com",
-            "country": "Uruguay"
-        }
-    ],
-    "Projects": [
-        
-    ]
+  "clients": [
+    {
+      "id": "1",
+      "name": "jhon",
+      "age": "21",
+      "email": "jhon@mgail.com",
+      "phone": "56398742"
+    }
+  ],
+  "Projects": []
 }

@@ -6,6 +6,7 @@ const api = createApi({
   baseQuery: axiosBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
   }),
+  tagTypes: ['Clients'],
   endpoints: () => ({}),
 });
 

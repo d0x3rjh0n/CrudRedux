@@ -1,6 +1,6 @@
 import { Fragment, useMemo, useState } from "react";
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { Box, Center, Flex, IconButton, Input, Table, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, IconButton, Input, Table, Text } from "@chakra-ui/react";
 import { MdModeEditOutline } from "react-icons/md";
 import { InputGroup } from "../components/ui/input-group";
 import { IoIosSearch } from "react-icons/io";
@@ -11,11 +11,15 @@ import NoTableData from "../components/NoTableData";
 import DialogDelete from "@/components/DialogDelete";
 import { useGetClientsQuery } from "@/api/endpoints/clientEndpoints";
 import { Client } from "../types";
+import { EmptyState } from '../components/ui/empty-state'
+import { TbFaceIdError } from "react-icons/tb";
+import { Spinner, VStack } from "@chakra-ui/react"
+
 
 const columns = [
-    { accessorKey: 'Id', header: 'Id' },
     { accessorKey: 'Name', header: 'Name' },
     { accessorKey: 'Email', header: 'Email' },
+    { accessorKey: 'Phone', header: 'Phone' },
     { accessorKey: 'Actions', header: 'Actions' }
 ];
 
@@ -42,8 +46,19 @@ const Clients = () => {
 
     const renderNoDataMessage = () => {
         if (inputFilter && filteredData.length === 0) {
-            return <NoTableData>No results found for your search</NoTableData>;
+            return (
+                <NoTableData>
+                    <EmptyState
+                        size={'lg'}
+                        icon={<TbFaceIdError />}
+                        title="No results found"
+                        description="Try adjusting your search"
+                    >
+                    </EmptyState>
+                </NoTableData>
+            );
         }
+        
         if (!DataClient || DataClient.length === 0) {
             return <NoTableData>You have not added any clients</NoTableData>;
         }
@@ -56,13 +71,15 @@ const Clients = () => {
         return !(inputFilter && !hasFilteredClients) && (hasDataClients || hasFilteredClients);
     };
 
-
     if (ClientError) return <p>Error loading clients</p>;
 
     return (
         <Fragment>
-            <Text textAlign={'center'} fontSize={'4xl'} fontFamily={'heading'} p={'4'}>Clients Content</Text>
+            <Heading textAlign={'center'} fontSize={'3xl'} p={'4'} color={'blackAlpha.700'}>
+                Clients table
+            </Heading>
             <Box w={'full'} mb={'2'} display={'flex'} justifyContent={'space-between'} gap={'2'} alignItems={'center'}>
+
                 <InputGroup flex={'1'} startElement={<IoIosSearch />}>
                     <Input
                         outline={'none'}
@@ -103,9 +120,9 @@ const Clients = () => {
                         <Table.Body>
                             {table.getRowModel().rows.map(row => (
                                 <Table.Row key={row.id}>
-                                    <Table.Cell textAlign={'center'}>{String(row.original.id)}</Table.Cell>
-                                    <Table.Cell textAlign={'center'}>{String(row.original.name)}</Table.Cell>
-                                    <Table.Cell textAlign={'center'}>{String(row.original.email)}</Table.Cell>
+                                    <Table.Cell textAlign={'center'}>{row.original.name}</Table.Cell>
+                                    <Table.Cell textAlign={'center'}>{row.original.email}</Table.Cell>
+                                    <Table.Cell textAlign={'center'}>{row.original.phone}</Table.Cell>
                                     <Table.Cell textAlign={'center'}>
                                         <Flex justifyContent={'end'} gap={'3'}>
                                             <IconButton 
@@ -125,7 +142,7 @@ const Clients = () => {
                                             rounded="full">
                                                 <MdModeEditOutline />
                                             </IconButton>
-                                            <DialogDelete id={String(row.original.id)}/>
+                                            <DialogDelete id={row.original.id}/>
                                         </Flex>
                                     </Table.Cell>
                                 </Table.Row>
@@ -137,7 +154,10 @@ const Clients = () => {
                 </Table.Root>
                 {ClientLoading ? (
                         <Center w="full" h="80%">
-                            <p>Cargando</p>
+                            <VStack colorPalette="teal">
+                                <Spinner color="blackAlpha.800" />
+                                <Text color="blackAlpha.800">Loading...</Text>
+                            </VStack>
                         </Center>
                     )
                     :

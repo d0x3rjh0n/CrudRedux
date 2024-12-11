@@ -4,15 +4,20 @@ import { Client } from "@/types";
 const clientApi = api.injectEndpoints({
     endpoints: (build) => ({
         getClients: build.query<Client[], void>({
-            query: () => ({ url: '/clients', method : 'GET'})
+            query: () => ({ url: '/clients', method : 'GET'}),
+            providesTags: ['Clients'],
         }),
-        updateClient: build.mutation({
-            query: ({ id, data }) => ({ url: `/clients/${id}`, method: 'PUT', data }),
+        deleteClient: build.mutation<void, { id : number }>({
+            query: ({ id }) => ({
+                url: `/clients/${id}/`,
+                method: 'Delete'
+            }),
+            invalidatesTags: ['Clients']
         }),
     }),
     overrideExisting: false
 })
 
 
-export const { useGetClientsQuery, useUpdateClientMutation } = clientApi
+export const { useGetClientsQuery, useDeleteClientMutation } = clientApi
 
