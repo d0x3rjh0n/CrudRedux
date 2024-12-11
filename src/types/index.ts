@@ -1,13 +1,15 @@
 export interface ArrayData {
-    id: string;
+    id: number;
     [ key: string ]: string | number | boolean | object | undefined 
 }
 
 export interface Client extends ArrayData {
-    id: string
+    id: number
     name: string
-    age: number
     email: string
+    country: object
 }
 
-
+export interface Id{
+    id:  number
+}

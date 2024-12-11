@@ -2,20 +2,18 @@ import { IconButton } from "@chakra-ui/react"
 import { Button } from "./ui/button"
 import { DialogActionTrigger, DialogBody, DialogCloseTrigger, DialogContent, DialogFooter, DialogHeader, DialogRoot, DialogTitle, DialogTrigger,} from "./ui/dialog"
 import { MdDelete } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { deleteClient } from "@/features/clients";
+//import { useDispatch } from "react-redux";
+import { Id } from '../types'
 
-interface Id{
-    id:  string
-}
+
 
 const DialogDelete = ({ id }: Id) => {
 
-    const dispatch = useDispatch()
+    //const dispatch = useDispatch()
     
-    const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: string) => {
+    const handleDelete = (e: React.MouseEvent<HTMLButtonElement>, id: number) => {
+        console.log(id);
         e.preventDefault()
-        dispatch(deleteClient({id}))
     }
 
     return (

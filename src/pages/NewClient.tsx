@@ -8,8 +8,6 @@ import { InputGroup } from "../components/ui/input-group"
 import { BiUser } from "react-icons/bi";
 import { HiOutlineIdentification } from "react-icons/hi";
 import { MdOutlineAttachEmail } from "react-icons/md";
-//import { MdOutlineNumbers } from "react-icons/md";
-import { toaster } from "../components/ui/toaster"
 import { useNavigate } from "react-router-dom"
 
 interface FormValues {
@@ -25,22 +23,16 @@ const schema = Yup.object().shape({
 
 })
 
-import { useDispatch } from "react-redux"
-import { addClient } from "../features/clients"
+//import { useDispatch } from "react-redux"
+
 
 
 
 const NewClient = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm<FormValues>({ resolver: yupResolver(schema) })
     const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const onSubmit = handleSubmit((data) => {
-        dispatch(addClient(data))
-        toaster.create({
-            title: 'Successful operation',
-            type: 'success',
-            duration: 2000
-        })
+    //const dispatch = useDispatch()
+    const onSubmit = handleSubmit(() => {
         navigate('/')
         reset()
     })
