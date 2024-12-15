@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { modalSelector } from "@/selectors/modalSelector";
 import { toaster } from "./ui/toaster";
 
+
 const DialogDelete = ({ id }: Id) => {
     const [ deleteClient ] = useDeleteClientMutation()
     const dispatch = useDispatch()
@@ -27,11 +28,12 @@ const DialogDelete = ({ id }: Id) => {
             <DialogTrigger asChild>
                 <IconButton 
                     onClick={() => dispatch(openModal())}              
-                    size={'2xs'} variant={'ghost'} 
+                    size={'md'} variant={'ghost'} 
+                    rounded={'full'}
                     colorPalette={'gray'} 
-                    color={'red.500'} 
+                    color={'purple.500'} 
                     aria-label="Delete" 
-                    rounded="full">
+                    >
                     <MdDelete />
                 </IconButton>
             </DialogTrigger>

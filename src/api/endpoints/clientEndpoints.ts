@@ -19,6 +19,21 @@ const clientApi = api.injectEndpoints({
                 data: newClient
             }),
             invalidatesTags: ['Clients']
+        }),
+        getClient: build.query<Client, string>({
+            query: (id) => ({
+                url: `/clients/${id}/`,
+                method: 'GET',
+            }),
+            providesTags: ['Client']
+        }),
+        updateClient: build.mutation<void, [Client, string | undefined]>({
+            query: ([newClient, id]) => ({
+                url: `/clients/${id}/`,
+                method: 'PUT',
+                data: newClient
+            }),
+            
         })
         
     }),
@@ -26,5 +41,5 @@ const clientApi = api.injectEndpoints({
 })
 
 
-export const { useGetClientsQuery, useDeleteClientMutation, useAddClientMutation } = clientApi
+export const { useGetClientsQuery, useGetClientQuery , useDeleteClientMutation, useAddClientMutation, useUpdateClientMutation } = clientApi
 

@@ -5,7 +5,7 @@ import NewClient from './pages/NewClient'
 import NewProject from './pages/NewProject'
 import Clients from './pages/Clients'
 import { Toaster } from './components/ui/toaster'
-import { Container } from "@chakra-ui/react"
+
 
 //redux-toolkit
 import { store } from './store'
@@ -19,7 +19,6 @@ function App() {
       <Provider store={store}>
         <Toaster />
         <Header />
-        <Container pt={'10'}>
         <Routes>
             <Route path='/' element={<Clients />} />
             <Route path='/newClient' element={<NewClient />} />
@@ -28,7 +27,7 @@ function App() {
             <Route path='/newProject' element={<NewProject />} />
             <Route path='/editProject/:id' element={<NewProject />} />
         </Routes>
-        </Container>
+
       </Provider>
     </Router>
   )

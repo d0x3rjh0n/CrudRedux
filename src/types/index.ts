@@ -13,3 +13,14 @@ export interface Id{
 export interface ModalType {
     value: boolean
 }
+
+export interface ValueCell {
+    value: string
+    cell: string
+}
+
+
+export interface ValidationResult {
+    valid: boolean;
+    error?: string;
+}
