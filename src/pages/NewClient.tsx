@@ -38,18 +38,21 @@ const NewClient = () => {
     const [updateClient] = useUpdateClientMutation()
     const navigate = useNavigate()
     const { id } = useParams<{ id : string}>() || {}
-    const { data } = useGetClientQuery( id || '' )
+    const { data } = useGetClientQuery( id || '', {
+        skip: !id,
+        refetchOnMountOrArgChange: true
+    } )
     
     useEffect(() => {
         if (id && data) {
             reset({
-                name: data.name,
-                age: data.age,
-                email: data.email,
-                phone: data.phone,
+                name: data?.name,
+                age: data?.age,
+                email: data?.email,
+                phone: data?.phone,
             });
         }
-    }, [id, data, reset]);
+    }, [id, data, reset]);    
 
     const onSubmit = handleSubmit(async (data) => {
         const newClient : Client = {
@@ -75,6 +78,7 @@ const NewClient = () => {
             console.error('Error adding client:', error);
         }
         reset();
+        
     });
     return (
         <Center md={{ height :'600px' }} height={'450px'}>

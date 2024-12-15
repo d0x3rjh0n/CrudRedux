@@ -25,7 +25,6 @@ const clientApi = api.injectEndpoints({
                 url: `/clients/${id}/`,
                 method: 'GET',
             }),
-            providesTags: ['Client']
         }),
         updateClient: build.mutation<void, [Client, string | undefined]>({
             query: ([newClient, id]) => ({
@@ -33,8 +32,9 @@ const clientApi = api.injectEndpoints({
                 method: 'PUT',
                 data: newClient
             }),
-            
-        })
+            invalidatesTags: ['Clients'],    
+        }),
+        
         
     }),
     overrideExisting: false

@@ -6,7 +6,7 @@ export interface Client {
     phone: string
 }
 
-export interface Id{
+export interface IdClient{
     id:  string
 }
 

@@ -1,11 +1,40 @@
 {
-  "clients": [
+  "clients": [],
+  "projects": [
     {
-      "id": "2aajrubsuoc",
-      "name": "HOasd",
-      "age": 20,
-      "email": "yatusabe@gmail.com",
-      "phone": "56455784"
+      "id": "asdasdasdasd",
+      "name" : "Certus-Dev",
+      "description": "Esta es la description",
+      "status": "active",
+      "priority": "up",
+      "budget": "$12000.65",
+      "actual_cost": "$855224.244",
+      "start_date": "una fecha",
+      "end_date": "otra fecha",
+      "actual_end_date": "utimna fecha",
+      "owner": "",
+      "progress": "80%",
+      "goals": [
+        {
+          "id": "askdmkasmda",
+          "name": "terminar el proyecto"
+        },
+        {
+          "id": "hgjghjghjghj",
+          "name": "terminar el proyecto"
+        },
+        {
+          "id": "ertertertert",
+          "name": "terminar el proyecto"
+        },
+        {
+          "id": "tryrtyrtyrtyr",
+          "name": "terminar el proyecto"
+        }
+      ],
+      "categorie": "Marketing",
+      "capacity": 3,
+      "clients": []
     }
   ]
 }

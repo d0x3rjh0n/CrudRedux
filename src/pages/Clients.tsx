@@ -5,7 +5,6 @@ import { InputGroup } from "../components/ui/input-group";
 import { IoIosSearch } from "react-icons/io";
 import { IoMdAdd } from "react-icons/io";
 import { Link } from "react-router-dom";
-import { MdRemoveRedEye } from "react-icons/md";
 import NoTableData from "../components/NoTableData";
 import DialogDelete from "@/components/DialogDelete";
 import { useGetClientsQuery } from "@/api/endpoints/clientEndpoints";
@@ -15,6 +14,8 @@ import { TbFaceIdError } from "react-icons/tb";
 import { Spinner, VStack } from "@chakra-ui/react"
 import { Button } from "../components/ui/button";
 import { MdEdit } from "react-icons/md";
+import ClientInfo from "@/components/ClientInfo";
+import { VscEmptyWindow } from "react-icons/vsc";
 
 const columns = [
     { accessorKey: 'Name', header: 'Name',  },
@@ -60,7 +61,15 @@ const Clients = () => {
         }
 
         if (!DataClient || DataClient.length === 0) {
-            return <NoTableData>You have not added any clients</NoTableData>;
+            return <NoTableData>
+                    <EmptyState
+                        size={'lg'}
+                        icon={<VscEmptyWindow />}
+                        title="You have not added any clients"
+                        description="Try to add a new Client"
+                    >
+                    </EmptyState>
+                </NoTableData>;
         }
         return null;
     };
@@ -99,7 +108,7 @@ const Clients = () => {
             </InputGroup>
             <Table.ScrollArea  w={'100%'} md={{ height: '650px'}} height={'450px'}>
                 
-                <Table.Root w={'100%'} size="md" variant={"outline"} border={'solid 1px'} borderColor={'gray.100'}>
+                <Table.Root w={'100%'} size="sm" variant={"outline"} border={'solid 1px'} borderColor={'gray.100'}>
                     <Table.Header>
                         {table.getHeaderGroups().map(headerGroup => (
                             <Table.Row key={headerGroup.id}>
@@ -132,15 +141,7 @@ const Clients = () => {
                                     </Table.Cell>
                                     <Table.Cell>
                                         <Flex justifyContent={'end'} gap={'3'}>
-                                            <IconButton 
-                                                size={'md'} 
-                                                variant={'ghost'} 
-                                                colorPalette={'gray'} 
-                                                color={'purple.800'} 
-                                                aria-label="View" 
-                                                rounded="full">
-                                                <MdRemoveRedEye />
-                                            </IconButton>
+                                             <ClientInfo id={row.original.id}/>   
                                             <Link to={`/editClient/${row.original.id}`}>
                                                 <IconButton variant={'ghost'} colorPalette={'gray'} rounded={'full'}>
                                                     <MdEdit/>

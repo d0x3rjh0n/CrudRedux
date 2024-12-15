@@ -2,7 +2,7 @@ import { IconButton } from "@chakra-ui/react"
 import { Button } from "./ui/button"
 import { DialogActionTrigger, DialogBody, DialogCloseTrigger, DialogContent, DialogFooter, DialogHeader, DialogRoot, DialogTitle, DialogTrigger,} from "./ui/dialog"
 import { MdDelete } from "react-icons/md";
-import { Id } from '../types'
+import { IdClient } from '../types'
 import { useDeleteClientMutation } from "@/api/endpoints/clientEndpoints";
 import { closeModal, openModal } from "@/slices/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +10,7 @@ import { modalSelector } from "@/selectors/modalSelector";
 import { toaster } from "./ui/toaster";
 
 
-const DialogDelete = ({ id }: Id) => {
+const DialogDelete = ({ id }: IdClient) => {
     const [ deleteClient ] = useDeleteClientMutation()
     const dispatch = useDispatch()
     const modalStatus = useSelector(modalSelector)
