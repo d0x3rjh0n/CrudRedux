@@ -21,7 +21,6 @@ interface FormValues {
     age: number
     email: string
     phone: string
-
 }
 
 const schema = Yup.object().shape({

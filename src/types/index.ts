@@ -6,6 +6,31 @@ export interface Client {
     phone: string
 }
 
+export interface Project {
+    id: string
+    name: string
+    description: string
+    priority: string
+    budget: number
+    actual_cost: number
+    start_date:  Date
+    end_date:  Date
+    actual_end_date: Date
+    categorie: string
+    capacity: number
+    progress: number
+}
+
+export interface Goal {
+    id: string
+    name: string
+}
+
+export interface Categorie {
+    id: string
+    name: string
+}
+
 export interface IdClient{
     id:  string
 }
@@ -18,7 +43,6 @@ export interface ValueCell {
     value: string
     cell: string
 }
-
 
 export interface ValidationResult {
     valid: boolean;

@@ -1,24 +1,45 @@
 import { useMemo, useState } from "react";
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { Box, Center, Flex, Heading, IconButton, Input, Table, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Input, Table, Text } from "@chakra-ui/react";
 import { InputGroup } from "../components/ui/input-group";
 import { IoIosSearch } from "react-icons/io";
 import { MdCreateNewFolder } from "react-icons/md";
 import { Link } from "react-router-dom";
 import NoTableData from "../components/NoTableData";
-import DialogDelete from "@/components/DialogDelete";
+//import DialogDelete from "@/components/DialogDelete";
 import { EmptyState } from '../components/ui/empty-state'
 import { TbFaceIdError } from "react-icons/tb";
 import { Spinner, VStack } from "@chakra-ui/react"
 import { Button } from "../components/ui/button";
-import { MdEdit } from "react-icons/md";
 import { MdOutlineFolderOff } from "react-icons/md";
+import { useGetProjectsQuery } from "@/api/endpoints/projectEndpoints";
+import { Project } from '../types'
+import AcordionProject from "@/components/AcordionProject";
+
+const columns = [
+    { accessorKey: 'Name', header: 'Name',  },
+    { accessorKey: 'Actions', header: 'Actions' }
+];
+
 const Projects = () => {
     const [inputFilter, setInputFilter] = useState<string>("")
-    const DataClient : any = ['']
-    const filteredData : any = []
+    const { data: ProjectsData, isLoading: ProjectsLoading} = useGetProjectsQuery()
+
+    const filteredData = useMemo(() => {
+        if (inputFilter) {
+            return ProjectsData?.filter( (project: Project) => project.name.toLowerCase().includes(inputFilter.toLocaleLowerCase()))
+        }
+        return ProjectsData
+    }, [inputFilter, ProjectsData])
+
+    const table = useReactTable({
+        data: filteredData || [],
+        columns,
+        getCoreRowModel: getCoreRowModel(),
+    });
+
     const renderNoDataMessage = () => {
-        if (inputFilter && filteredData.length === 0) {
+        if (inputFilter && filteredData?.length === 0) {
             return (
                 <NoTableData>
                     <EmptyState
@@ -32,7 +53,7 @@ const Projects = () => {
             );
         }
 
-        if (!DataClient || DataClient.length === 0) {
+        if (!ProjectsData || ProjectsData?.length === 0) {
             return <NoTableData>
                     <EmptyState
                         size={'lg'}
@@ -45,6 +66,17 @@ const Projects = () => {
         }
         return null;
     };
+
+    const shouldRenderTableBody = () => {
+        const hasFilteredProjects = filteredData && filteredData?.length > 0;
+        const hasDataProjects = ProjectsData && ProjectsData?.length > 0;
+        return !(inputFilter && !hasFilteredProjects) && (hasDataProjects || hasFilteredProjects);
+    };
+
+    const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setInputFilter(e.target.value);
+    };
+
     return (
         <Center py={'14'}>
         <Flex flexDir={'column'} alignItems={'center'} w={'90%'} md={{w : '80%'}} xl={{w : '60%'}} borderWidth="1px" borderRadius=  {'xl'} paddingX={'5'} shadow={'2xl'}>
@@ -52,29 +84,22 @@ const Projects = () => {
                 <Heading textAlign={'start'} w={'full'} fontSize={'xl'} color={'blackAlpha.700'}>
                     Projects Content
                 </Heading>
-                <Link to={'/newClient'}>
+                <Link to={'/newProject'}>
                     <Button variant={'solid'} colorPalette={'purple'} size={'xs'} rounded={'full'}><MdCreateNewFolder /> New Project</Button>
                 </Link>
             </Box>
             
             <InputGroup w={'full'} flex={'1'} mb={'4'} startElement={<IoIosSearch />}>
-                <Input
-                    borderRadius={'2xl'}
-                    outline={'none'}
-                    focusRing={'inside'}
-                    focusRingColor={'purple.400'}
-                    transition={'all'}
-                    placeholder="Search project for name"
-                    //value={inputFilter}
-                    //onChange={handleFilterChange}
+                <Input borderRadius={'2xl'} outline={'none'} focusRing={'inside'} focusRingColor={'purple.400'} transition={'all'} placeholder="Search project for name"
+                    value={inputFilter}
+                    onChange={handleFilterChange}
                 />
             </InputGroup>
             <Table.ScrollArea  w={'100%'} md={{ height: '650px'}} height={'450px'}>
-                {/**
+                
                 <Table.Root w={'100%'} size="sm" variant={"outline"} border={'solid 1px'} borderColor={'gray.100'}>
                     <Table.Header>
-                        
-                         table.getHeaderGroups().map(headerGroup => (
+                        {table.getHeaderGroups().map(headerGroup => (
                             <Table.Row key={headerGroup.id}>
                                 {headerGroup.headers.map(header => (
                                     <Table.ColumnHeader
@@ -82,14 +107,12 @@ const Projects = () => {
                                         key={header.id}
                                         colSpan={header.colSpan}
                                         style={ header.id === 'Name' ? {width : '45%'} : 
-                                                header.id === 'Email' ? {width : '45%'} : 
                                                 header.id === 'Actions' ? { width: '10%' } : 
                                                 {}}
                                     >
                                         {header.id}
                                     </Table.ColumnHeader>
-                                ))
-                                
+                                ))}
                             </Table.Row>
                         ))}
                     </Table.Header>
@@ -99,21 +122,7 @@ const Projects = () => {
                             {table.getRowModel().rows.map(row => (
                                 <Table.Row key={row.id}>
                                     <Table.Cell >
-                                       {row.original.name} 
-                                    </Table.Cell>
-                                    <Table.Cell>
-                                        {row.original.email} 
-                                    </Table.Cell>
-                                    <Table.Cell>
-                                        <Flex justifyContent={'end'} gap={'3'}>
-                                             <ClientInfo id={row.original.id}/>   
-                                            <Link to={`/editClient/${row.original.id}`}>
-                                                <IconButton variant={'ghost'} colorPalette={'gray'} rounded={'full'}>
-                                                    <MdEdit/>
-                                                </IconButton>
-                                            </Link>
-                                            <DialogDelete id={row.original.id}/>
-                                        </Flex>
+                                        <AcordionProject project={row.original}/>
                                     </Table.Cell>
                                 </Table.Row>
                             ))}
@@ -122,20 +131,17 @@ const Projects = () => {
                         null
                     )}
                 </Table.Root>
-                 */ 
-                 }  
-                { /**
-                ClientLoading ? (
-                        <Center w="full" h="80%">
-                            <VStack colorPalette="teal">
-                                <Spinner color="blackAlpha.800" />
-                                <Text color="blackAlpha.800">Loading...</Text>
-                            </VStack>
-                        </Center>
-                    )
-                    :
+                {
+                    ProjectsLoading ? (
+                            <Center w="full" h="80%">
+                                <VStack colorPalette="teal">
+                                    <Spinner color="blackAlpha.800" />
+                                    <Text color="blackAlpha.800">Loading...</Text>
+                                </VStack>
+                            </Center>
+                        )
+                        :
                     renderNoDataMessage()
-                 */ 
                 }
             </Table.ScrollArea>
         </Flex>

@@ -46,7 +46,7 @@ const Clients = () => {
     };
 
     const renderNoDataMessage = () => {
-        if (inputFilter && filteredData.length === 0) {
+        if (inputFilter && filteredData?.length === 0) {
             return (
                 <NoTableData>
                     <EmptyState
@@ -60,7 +60,7 @@ const Clients = () => {
             );
         }
 
-        if (!DataClient || DataClient.length === 0) {
+        if (!DataClient || DataClient?.length === 0) {
             return <NoTableData>
                     <EmptyState
                         size={'lg'}
@@ -75,8 +75,8 @@ const Clients = () => {
     };
 
     const shouldRenderTableBody = () => {
-        const hasFilteredClients = filteredData && filteredData.length > 0;
-        const hasDataClients = DataClient && DataClient.length > 0;
+        const hasFilteredClients = filteredData && filteredData?.length > 0;
+        const hasDataClients = DataClient && DataClient?.length > 0;
         return !(inputFilter && !hasFilteredClients) && (hasDataClients || hasFilteredClients);
     };
 
