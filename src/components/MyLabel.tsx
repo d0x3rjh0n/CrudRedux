@@ -6,7 +6,7 @@ interface Props {
 
 const MyLabel = ({children}: Props) => {
   return (
-    <Heading color={'blackAlpha.700'} fontSize={'lg'}>
+    <Heading color={'blackAlpha.700'} fontSize={'md'}>
         {children}
     </Heading>
   )

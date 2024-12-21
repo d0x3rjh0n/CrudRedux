@@ -12,13 +12,13 @@ export interface Project {
     description: string
     priority: string
     budget: number
-    actual_cost: number
     start_date:  Date
     end_date:  Date
-    actual_end_date: Date
     categorie: string
     capacity: number
     progress: number
+    status: string,
+    clients: Client[]
 }
 
 export interface Goal {

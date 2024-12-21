@@ -24,117 +24,32 @@
   ],
   "projects": [
     {
-      "id": "asdasdasdasd",
-      "name": "Certus-Dev",
-      "description": "Esta es la description",
-      "status": "active",
-      "priority": "up",
-      "budget": "$12000.65",
-      "actual_cost": "$855224.244",
-      "start_date": "una fecha",
-      "end_date": "otra fecha",
-      "actual_end_date": "utimna fecha",
-      "owner": "",
-      "progress": "80%",
-      "goals": [
-        {
-          "id": "askdmkasmda",
-          "name": "terminar el proyecto"
-        },
-        {
-          "id": "hgjghjghjghj",
-          "name": "terminar el proyecto"
-        },
-        {
-          "id": "ertertertert",
-          "name": "terminar el proyecto"
-        },
-        {
-          "id": "tryrtyrtyrtyr",
-          "name": "terminar el proyecto"
-        }
-      ],
-      "categorie": "Marketing",
-      "capacity": 3,
-      "clients": []
-    },
-    {
-      "id": "kiikoiioil",
-      "name": "Facel",
-      "description": "Esta es la description",
-      "status": "active",
-      "priority": "up",
-      "budget": "$12000.65",
-      "actual_cost": "$855224.244",
-      "start_date": "una fecha",
-      "end_date": "otra fecha",
-      "actual_end_date": "utimna fecha",
-      "owner": "",
-      "progress": "80%",
-      "goals": [
-        {
-          "id": "askdmkasmda",
-          "name": "terminar el proyecto"
-        },
-        {
-          "id": "hgjghjghjghj",
-          "name": "terminar el proyecto"
-        },
-        {
-          "id": "ertertertert",
-          "name": "terminar el proyecto"
-        },
-        {
-          "id": "tryrtyrtyrtyr",
-          "name": "terminar el proyecto"
-        }
-      ],
-      "categorie": "Marketing",
-      "capacity": 3,
-      "clients": []
-    },
-    {
-      "id": "504tjvla8n8",
-      "capacity": 3,
+      "id": "0p83j8t7dm4",
+      "capacity": 4,
       "categorie": "marketing",
-      "end_date": "2024-12-02T05:00:00.000Z",
+      "end_date": "2024-12-13T05:00:00.000Z",
+      "start_date": "2024-12-02T05:00:00.000Z",
+      "budget": 20000,
+      "priority": "high",
+      "status": "false",
+      "description": "esta es una descripcion breve de un prpyecto q se va a implementar en enero del 0225 p[ara llos ciudadadonos de mas de 25 a;io para este servicio hay q contar con tarjeta bpa\n",
+      "name": "Facel",
+      "progress": 0,
+      "clients": []
+    },
+    {
+      "id": "809r2atlm48",
+      "clients": [],
+      "capacity": 2,
+      "categorie": "web-dev",
+      "end_date": "2024-12-21T05:00:00.000Z",
       "start_date": "2024-12-01T05:00:00.000Z",
-      "actual_cost": 4,
       "budget": 1,
       "priority": "high",
-      "status": true,
-      "description": "asddd",
-      "name": "asd",
+      "status": "on",
+      "description": "asdasd",
+      "name": "P",
       "progress": 0
-    },
-    {
-      "id": "i7qgqnftu4g",
-      "capacity": 3,
-      "categorie": "account-service",
-      "end_date": "2024-12-05T05:00:00.000Z",
-      "start_date": "2024-12-02T05:00:00.000Z",
-      "actual_cost": 2,
-      "budget": 1,
-      "priority": "low",
-      "status": false,
-      "description": "dddd",
-      "name": "dddd",
-      "progress": 0
-    },
-    {
-      "id": "k61f8te5nd8",
-      "capacity": 3,
-      "categorie": "web-dev",
-      "end_date": "2024-12-11T05:00:00.000Z",
-      "start_date": "2024-12-01T05:00:00.000Z",
-      "actual_cost": 1,
-      "budget": 3,
-      "priority": "medium",
-      "status": true,
-      "description": "a",
-      "name": "a",
-      "progress": 0,
-      "actual_end_date": "2024-12-18T18:43:09.520Z"
     }
   ]
 }

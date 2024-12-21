@@ -18,7 +18,6 @@ import AcordionProject from "@/components/AcordionProject";
 
 const columns = [
     { accessorKey: 'Name', header: 'Name',  },
-    { accessorKey: 'Actions', header: 'Actions' }
 ];
 
 const Projects = () => {
@@ -106,9 +105,7 @@ const Projects = () => {
                                         textAlign={header.id === 'Actions' ? 'center' : 'start'}
                                         key={header.id}
                                         colSpan={header.colSpan}
-                                        style={ header.id === 'Name' ? {width : '45%'} : 
-                                                header.id === 'Actions' ? { width: '10%' } : 
-                                                {}}
+                                        style={ header.id === 'Name' ? {width : '45%'} : {}}
                                     >
                                         {header.id}
                                     </Table.ColumnHeader>
