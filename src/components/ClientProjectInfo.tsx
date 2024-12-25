@@ -1,5 +1,4 @@
-import { IconButton, Separator, Spinner, VStack } from "@chakra-ui/react"
-import { MdRemoveRedEye } from "react-icons/md";
+import { Separator, Spinner, VStack } from "@chakra-ui/react"
 import { DataListItem, DataListRoot } from "./ui/data-list"
 import {
   DialogBody,
@@ -12,33 +11,29 @@ import {
 } from "./ui/dialog"
 import { IdClient } from '../types/'
 import { useGetClientQuery } from "@/api/endpoints/clientEndpoints";
+import { BsFillEyeFill } from "react-icons/bs";
+import { Button } from "./ui/button";
 
-const ClientInfo = ({ id }: IdClient) => {
+
+const ClientProjectInfo = ({ id }: IdClient) => {
     const { data, isLoading} = useGetClientQuery(id, {
         refetchOnMountOrArgChange: true
     })
   return (
     <VStack alignItems="start">
-      <DialogRoot size={'xs'} placement={'center'}>
+      <DialogRoot placement={'center'} size={'xs'}>
         <DialogTrigger asChild>
-          <IconButton 
-              size={'md'} 
-              variant={'ghost'} 
-              colorPalette={'gray'} 
-              color={'purple.800'} 
-              aria-label="View" 
-              rounded="full">
-              <MdRemoveRedEye />
-          </IconButton>
+            <Button size={'sm'} variant={'subtle'} borderRadius={'full'} fontWeight={'bolder'}>
+                {data?.name} <BsFillEyeFill color="gray"/>
+            </Button>
         </DialogTrigger>
         <DialogContent>
             {isLoading ? (   
                 <Spinner color="blackAlpha.800" />)
             :    
-          (
-            <>
+          (<>
             <DialogHeader>
-                <DialogTitle>Prepare Chakra V3</DialogTitle>
+                <DialogTitle>Client Information</DialogTitle>
             </DialogHeader>
             <DialogBody pb="8">
                 <DataListRoot orientation="horizontal">
@@ -52,15 +47,12 @@ const ClientInfo = ({ id }: IdClient) => {
                 <Separator/>
                 </DataListRoot>
             </DialogBody>
-            </>
-          )
-           }
+            </>)}
           <DialogCloseTrigger />
-
         </DialogContent>
       </DialogRoot>
     </VStack>
   )
 }
 
-export default ClientInfo
+export default ClientProjectInfo

@@ -147,7 +147,7 @@ const Clients = () => {
                                                     <MdEdit/>
                                                 </IconButton>
                                             </Link>
-                                            <DialogDelete id={row.original.id}/>
+                                            <DialogDelete object="client" id={row.original.id}/>
                                         </Flex>
                                     </Table.Cell>
                                 </Table.Row>

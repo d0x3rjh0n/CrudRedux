@@ -7,11 +7,8 @@ export const generateId = () => {
 export const schemaProject = yup.object().shape({
     name: yup.string().required('Name is required'),
     description: yup.string().required('Description is required'),
-    status: yup.string().notRequired(),
     priority: yup.string().required('Priority is required'),
     budget: yup.number().required('Budget is required').positive(),
-    start_date: yup.date().required('Start date is required'),
-    end_date: yup.date().required('End date is required').min(yup.ref('start_date'), 'End date must be later than start date'),
     categorie: yup.string().required('Category is required'),
     capacity: yup.number().required('Capacity is required').positive(),
     clients: yup.array().of(
@@ -34,4 +31,7 @@ export function formatDate(isoDate: Date) {
     return `${day}/${month}/${year}`;
 }
 
-
+export function parseDate(dateString: string) {
+  const [month, day, year] = dateString.split('/').map(Number);
+  return new Date(year, month - 1, day); // Mes es 0-indexado
+}

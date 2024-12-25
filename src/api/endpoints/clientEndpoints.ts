@@ -34,8 +34,6 @@ const clientApi = api.injectEndpoints({
             }),
             invalidatesTags: ['Clients'],    
         }),
-        
-        
     }),
     overrideExisting: false
 })

@@ -12,12 +12,10 @@ export interface Project {
     description: string
     priority: string
     budget: number
-    start_date:  Date
-    end_date:  Date
     categorie: string
     capacity: number
     progress: number
-    status: string,
+    status: boolean,
     clients: Client[]
 }
 
@@ -47,4 +45,12 @@ export interface ValueCell {
 export interface ValidationResult {
     valid: boolean;
     error?: string;
+}
+
+export interface PatchStatusProject {
+    status: boolean
+}
+
+export interface PatchProgressProject {
+    progress : number
 }

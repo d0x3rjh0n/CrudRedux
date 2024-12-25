@@ -2,23 +2,33 @@ import { IconButton } from "@chakra-ui/react"
 import { Button } from "./ui/button"
 import { DialogActionTrigger, DialogBody, DialogCloseTrigger, DialogContent, DialogFooter, DialogHeader, DialogRoot, DialogTitle, DialogTrigger,} from "./ui/dialog"
 import { MdDelete } from "react-icons/md";
-import { IdClient } from '../types'
 import { useDeleteClientMutation } from "@/api/endpoints/clientEndpoints";
-import { closeModal, openModal } from "@/slices/modalSlice";
+import { openModal } from "@/slices/modalSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { modalSelector } from "@/selectors/modalSelector";
 import { toaster } from "./ui/toaster";
+import { useDeleteProjectMutation } from "@/api/endpoints/projectEndpoints";
+import { TiFolderDelete } from "react-icons/ti";
 
-
-const DialogDelete = ({ id }: IdClient) => {
+interface Props {
+    id: string,
+    object: string
+ }
+const DialogDelete = ({ id, object }: Props) => {
     const [ deleteClient ] = useDeleteClientMutation()
+    const [ deleteProject ] = useDeleteProjectMutation()
     const dispatch = useDispatch()
     const modalStatus = useSelector(modalSelector)
     const handleDelete = async (id: string) => {   
         try {
-            await deleteClient(id).unwrap()
+            if (object === 'client') {
+                await deleteClient(id).unwrap()    
+            }else{
+                await deleteProject(id).unwrap()
+            }
+            
             toaster.create({type: "success", title: 'Successfuly Operation'})
-            dispatch(closeModal())
+            dispatch(openModal())
         } catch (error) {
             console.log('Eror => ', error);
         }
@@ -34,7 +44,7 @@ const DialogDelete = ({ id }: IdClient) => {
                     color={'purple.500'} 
                     aria-label="Delete" 
                     >
-                    <MdDelete />
+                {object === 'project' ? <TiFolderDelete/> : <MdDelete />}
                 </IconButton>
             </DialogTrigger>
             <DialogContent>
@@ -43,17 +53,17 @@ const DialogDelete = ({ id }: IdClient) => {
                 </DialogHeader>
                 <DialogBody>
                 <p>
-                    This action cannot be undone. This will permanently delete this
-                    client and remove this data from the system.
+                    This action cannot be undone. This will permanently delete this 
+                    {' '}{ object } and remove this data from the system.
                 </p>
                 </DialogBody>
                 <DialogFooter>
                 <DialogActionTrigger asChild>
-                    <Button variant="outline" onClick={() => dispatch(closeModal())}>Cancel</Button>
+                    <Button variant="outline" onClick={() => dispatch(openModal())}>Cancel</Button>
                 </DialogActionTrigger>
                 <Button colorPalette="red" onClick={() => handleDelete(id)} >Delete</Button>
                 </DialogFooter>
-                <DialogCloseTrigger onClick={() => dispatch(closeModal())}/>
+                <DialogCloseTrigger onClick={() => dispatch(openModal())}/>
             </DialogContent>
         </DialogRoot>
     )

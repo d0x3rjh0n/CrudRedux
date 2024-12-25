@@ -96,7 +96,7 @@ const Projects = () => {
             </InputGroup>
             <Table.ScrollArea  w={'100%'} md={{ height: '650px'}} height={'450px'}>
                 
-                <Table.Root w={'100%'} size="sm" variant={"outline"} border={'solid 1px'} borderColor={'gray.100'}>
+                <Table.Root w={'100%'} size="sm" variant={"outline"}  borderColor={'gray.100'}>
                     <Table.Header>
                         {table.getHeaderGroups().map(headerGroup => (
                             <Table.Row key={headerGroup.id}>

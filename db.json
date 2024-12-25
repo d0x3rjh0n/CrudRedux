@@ -2,54 +2,130 @@
   "clients": [
     {
       "id": "h4mlk89vnv4",
-      "name": "jhon",
-      "age": 23,
-      "email": "candel@gmail",
-      "phone": "312312312"
+      "name": "Alice",
+      "age": 25,
+      "email": "alice@example.com",
+      "phone": "123456789"
     },
     {
       "id": "65c5rsqstj",
-      "name": "mazuca",
-      "age": 21,
-      "email": "a@gmail.com",
-      "phone": "563987455"
+      "name": "Bob",
+      "age": 30,
+      "email": "bob@example.com",
+      "phone": "987654321"
     },
     {
       "id": "bkb3duultt",
-      "name": "zuko",
+      "name": "Charlie",
+      "age": 28,
+      "email": "charlie@example.com",
+      "phone": "456789123"
+    },
+    {
+      "id": "h4mlk89vnv24",
+      "name": "Diana",
+      "age": 27,
+      "email": "diana@example.com",
+      "phone": "321654987"
+    },
+    {
+      "id": "65c5rsqst1j",
+      "name": "Ethan",
       "age": 22,
-      "email": "2@gmail.com",
-      "phone": "43534541"
+      "email": "ethan@example.com",
+      "phone": "654321789"
+    },
+    {
+      "id": "bkb3duul6tt",
+      "name": "Fiona",
+      "age": 26,
+      "email": "fiona@example.com",
+      "phone": "789123456"
+    },
+    {
+      "id": "h4mlk89vdnv4",
+      "name": "George",
+      "age": 29,
+      "email": "george@example.com",
+      "phone": "234567890"
+    },
+    {
+      "id": "65c5rs1qstj",
+      "name": "Hannah",
+      "age": 24,
+      "email": "hannah@example.com",
+      "phone": "345678901"
+    },
+    {
+      "id": "bkb3duu55ltt",
+      "name": "Ian",
+      "age": 31,
+      "email": "ian@example.com",
+      "phone": "456789012"
+    },
+    {
+      "id": "h4m123lk89vnv24",
+      "name": "Julia",
+      "age": 23,
+      "email": "julia@example.com",
+      "phone": "567890123"
+    },
+    {
+      "id": "65c523rsqst1j",
+      "name": "Kevin",
+      "age": 32,
+      "email": "kevin@example.com",
+      "phone": "678901234"
+    },
+    {
+      "id": "bkb31duul6tt",
+      "name": "Laura",
+      "age": 33,
+      "email": "laura@example.com",
+      "phone": "789012345"
+    },
+    {
+      "id": "h4mlk819vdnv4",
+      "name": "Mike",
+      "age": 34,
+      "email": "mike@example.com",
+      "phone": "890123456"
+    },
+    {
+      "id": "65c5rs11qstj",
+      "name": "Nina",
+      "age": 35,
+      "email": "ninaNuevo@example.com",
+      "phone": "901234567"
+    },
+    {
+      "id": "bkb3duu552ltt",
+      "name": "Oscar",
+      "age": 36,
+      "email": "oscar@example.com",
+      "phone": "012345678"
     }
   ],
   "projects": [
     {
-      "id": "0p83j8t7dm4",
-      "capacity": 4,
-      "categorie": "marketing",
-      "end_date": "2024-12-13T05:00:00.000Z",
-      "start_date": "2024-12-02T05:00:00.000Z",
-      "budget": 20000,
-      "priority": "high",
-      "status": "false",
-      "description": "esta es una descripcion breve de un prpyecto q se va a implementar en enero del 0225 p[ara llos ciudadadonos de mas de 25 a;io para este servicio hay q contar con tarjeta bpa\n",
-      "name": "Facel",
-      "progress": 0,
-      "clients": []
-    },
-    {
-      "id": "809r2atlm48",
-      "clients": [],
-      "capacity": 2,
-      "categorie": "web-dev",
-      "end_date": "2024-12-21T05:00:00.000Z",
-      "start_date": "2024-12-01T05:00:00.000Z",
-      "budget": 1,
-      "priority": "high",
-      "status": "on",
-      "description": "asdasd",
-      "name": "P",
-      "progress": 0
+      "id": "28jv5762nec",
+      "name": "Facel Nuevoasdasdasd",
+      "budget": 263254,
+      "capacity": 7,
+      "categorie": "account-service",
+      "clients": [
+        {
+          "id": "h4mlk89vnv4",
+          "name": "Alice",
+          "age": 25,
+          "email": "alice@example.com",
+          "phone": "123456789"
+        }
+      ],
+      "description": "a",
+      "priority": "low",
+      "progress": 48,
+      "status": true
     }
   ]
 }
