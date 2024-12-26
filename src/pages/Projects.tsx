@@ -1,20 +1,22 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getCoreRowModel, useReactTable } from '@tanstack/react-table';
-import { Box, Center, Flex, Heading, Input, Table, Text } from "@chakra-ui/react";
-import { InputGroup } from "../components/ui/input-group";
+import {  Flex, Table } from "@chakra-ui/react";
 import { IoIosSearch } from "react-icons/io";
 import { MdCreateNewFolder } from "react-icons/md";
-import { Link } from "react-router-dom";
 import NoTableData from "../components/NoTableData";
-//import DialogDelete from "@/components/DialogDelete";
-import { EmptyState } from '../components/ui/empty-state'
 import { TbFaceIdError } from "react-icons/tb";
-import { Spinner, VStack } from "@chakra-ui/react"
-import { Button } from "../components/ui/button";
 import { MdOutlineFolderOff } from "react-icons/md";
 import { useGetProjectsQuery } from "@/api/endpoints/projectEndpoints";
 import { Project } from '../types'
-import AcordionProject from "@/components/AcordionProject";
+import TableLayout from "@/components/TableLayout";
+import TableHeaderProject from "@/components/TableHeaderProject";
+import TableBodyProject from "@/components/TableBodyProject";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
+import { shouldRenderTableBody } from "@/helpers";
+import { useDispatch, useSelector } from "react-redux";
+import { pagProjectSelector } from "@/selectors/pagProjectSelector";
+import { setProjects, resetPage } from "@/slices/paginationProjectSlice";
+import PaginationComponent from "@/components/PaginationComponent";
 
 const columns = [
     { accessorKey: 'Name', header: 'Name',  },
@@ -22,15 +24,30 @@ const columns = [
 
 const Projects = () => {
     const [inputFilter, setInputFilter] = useState<string>("")
-    const { data: ProjectsData, isLoading: ProjectsLoading} = useGetProjectsQuery()
+    const { data: ProjectsData = [], isLoading: ProjectsLoading} = useGetProjectsQuery()
+    const { projects, count, currentPage, pageSize} = useSelector(pagProjectSelector)
+    const dispatch = useDispatch()
+    const startRange = (currentPage - 1) * pageSize
+    const endRange = startRange + pageSize
+    const isPaginated = ProjectsData.length > pageSize
+    useEffect(() => {
+        dispatch(resetPage())
+    }, [dispatch])
+
+    useEffect(() => {
+        if (ProjectsData.length > 0) {
+            dispatch(setProjects(ProjectsData))
+        }
+    }, [ProjectsData, dispatch])
+
+    const paginateData = useMemo(() => projects.slice(startRange, endRange), [startRange, endRange, projects])
 
     const filteredData = useMemo(() => {
-        if (inputFilter) {
-            return ProjectsData?.filter( (project: Project) => project.name.toLowerCase().includes(inputFilter.toLocaleLowerCase()))
-        }
-        return ProjectsData
-    }, [inputFilter, ProjectsData])
+        const dataToFilter = inputFilter ? projects : paginateData
+        return dataToFilter.filter( (project : Project) => project.name.toLowerCase().includes(inputFilter.toLocaleLowerCase()))
+     }, [inputFilter, projects, paginateData])
 
+    
     const table = useReactTable({
         data: filteredData || [],
         columns,
@@ -39,37 +56,12 @@ const Projects = () => {
 
     const renderNoDataMessage = () => {
         if (inputFilter && filteredData?.length === 0) {
-            return (
-                <NoTableData>
-                    <EmptyState
-                        size={'lg'}
-                        icon={<TbFaceIdError />}
-                        title="No results found"
-                        description="Try adjusting your search"
-                    >
-                    </EmptyState>
-                </NoTableData>
-            );
+            return <NoTableData title="No results found" description="Try adjusting your search" Icon={TbFaceIdError}/>
         }
-
         if (!ProjectsData || ProjectsData?.length === 0) {
-            return <NoTableData>
-                    <EmptyState
-                        size={'lg'}
-                        icon={<MdOutlineFolderOff />}
-                        title="You have not added any project"
-                        description="Try to add a New Project"
-                    >
-                    </EmptyState>
-                </NoTableData>;
+            return <NoTableData title="You have not added any project" description="Try to add a New Project" Icon={MdOutlineFolderOff}/>
         }
         return null;
-    };
-
-    const shouldRenderTableBody = () => {
-        const hasFilteredProjects = filteredData && filteredData?.length > 0;
-        const hasDataProjects = ProjectsData && ProjectsData?.length > 0;
-        return !(inputFilter && !hasFilteredProjects) && (hasDataProjects || hasFilteredProjects);
     };
 
     const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,72 +69,20 @@ const Projects = () => {
     };
 
     return (
-        <Center py={'14'}>
-        <Flex flexDir={'column'} alignItems={'center'} w={'90%'} md={{w : '80%'}} xl={{w : '60%'}} borderWidth="1px" borderRadius=  {'xl'} paddingX={'5'} shadow={'2xl'}>
-            <Box w={'full'} mb={'2'} display={'flex'} justifyContent={'space-between'} gap={'2'} alignItems={'center'} mt={'3'}>
-                <Heading textAlign={'start'} w={'full'} fontSize={'xl'} color={'blackAlpha.700'}>
-                    Projects Content
-                </Heading>
-                <Link to={'/newProject'}>
-                    <Button variant={'solid'} colorPalette={'purple'} size={'xs'} rounded={'full'}><MdCreateNewFolder /> New Project</Button>
-                </Link>
-            </Box>
-            
-            <InputGroup w={'full'} flex={'1'} mb={'4'} startElement={<IoIosSearch />}>
-                <Input borderRadius={'2xl'} outline={'none'} focusRing={'inside'} focusRingColor={'purple.400'} transition={'all'} placeholder="Search project for name"
-                    value={inputFilter}
-                    onChange={handleFilterChange}
-                />
-            </InputGroup>
-            <Table.ScrollArea  w={'100%'} md={{ height: '650px'}} height={'450px'}>
-                
-                <Table.Root w={'100%'} size="sm" variant={"outline"}  borderColor={'gray.100'}>
-                    <Table.Header>
-                        {table.getHeaderGroups().map(headerGroup => (
-                            <Table.Row key={headerGroup.id}>
-                                {headerGroup.headers.map(header => (
-                                    <Table.ColumnHeader
-                                        textAlign={header.id === 'Actions' ? 'center' : 'start'}
-                                        key={header.id}
-                                        colSpan={header.colSpan}
-                                        style={ header.id === 'Name' ? {width : '45%'} : {}}
-                                    >
-                                        {header.id}
-                                    </Table.ColumnHeader>
-                                ))}
-                            </Table.Row>
-                        ))}
-                    </Table.Header>
-
-                    {shouldRenderTableBody() ? (
-                        <Table.Body>
-                            {table.getRowModel().rows.map(row => (
-                                <Table.Row key={row.id}>
-                                    <Table.Cell >
-                                        <AcordionProject project={row.original}/>
-                                    </Table.Cell>
-                                </Table.Row>
-                            ))}
-                        </Table.Body>
-                    ) : (
-                        null
-                    )}
-                </Table.Root>
-                {
-                    ProjectsLoading ? (
-                            <Center w="full" h="80%">
-                                <VStack colorPalette="teal">
-                                    <Spinner color="blackAlpha.800" />
-                                    <Text color="blackAlpha.800">Loading...</Text>
-                                </VStack>
-                            </Center>
-                        )
-                        :
-                    renderNoDataMessage()
-                }
-            </Table.ScrollArea>
-        </Flex>
-        </Center>
+        <TableLayout LinkIcon={MdCreateNewFolder} SearchIcon={IoIosSearch} handleFilterChange={handleFilterChange}  heading="Projects Content" linkName="New Project" linkPath="/newProject" searchValue={inputFilter} placeholder="project">
+            {
+                ProjectsLoading ? <LoadingSkeleton/> :
+                shouldRenderTableBody(filteredData, ProjectsData, inputFilter) ?
+                <Flex flexDirection={'column'} h={'full'} justifyContent={'space-between'}>
+                    <Table.Root w={'100%'} size="sm" variant={"outline"} borderColor={'gray.100'}>
+                        <TableHeaderProject table={table}/>
+                        <TableBodyProject table={table}/>
+                    </Table.Root>
+                    {!inputFilter && isPaginated && <PaginationComponent count={count} pageSize={pageSize} page={currentPage} value="projects"/>}
+                </Flex> : 
+                renderNoDataMessage()
+            }            
+        </TableLayout>
 
     )
 }

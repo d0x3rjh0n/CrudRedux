@@ -28,7 +28,7 @@ const clientsArraySlice = createSlice({
         resetArray(state){ state.clientsArray = []},
         fillArray(state, action: PayloadAction<Client[]>){
             state.clientsArray = action.payload
-        }
+        },
     }
 })
 

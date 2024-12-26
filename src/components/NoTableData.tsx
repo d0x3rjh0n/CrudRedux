@@ -1,14 +1,17 @@
 import { Center } from '@chakra-ui/react';
-import { ReactNode } from 'react';
+import { EmptyState } from './ui/empty-state';
+import { IconType } from 'react-icons/lib';
 
 interface Message {
-    children: ReactNode;
+    Icon: IconType
+    title: string
+    description: string
 }
 
-const NoTableData = ({ children }: Message) => {
+const NoTableData = ({ Icon, title, description }: Message) => {
     return (
-        <Center height={'80%'} color={'gray.400'} fontSize={'2xl'} fontWeight={'light'}>
-            {children}
+        <Center height={'100%'} color={'gray.400'} fontSize={'2xl'} fontWeight={'light'}>
+            <EmptyState size={'lg'} icon={<Icon />} title={title}  description={description}/>    
         </Center>
     );
 };

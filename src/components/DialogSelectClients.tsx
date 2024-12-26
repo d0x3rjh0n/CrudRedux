@@ -28,12 +28,11 @@ const DialogSelectClients = () => {
           :    
           (<>
             <DialogHeader>
-              <DialogTitle>Prepare Chakra V3</DialogTitle>
+              <DialogTitle>List of Clients</DialogTitle>
             </DialogHeader>
             <DialogBody pb="8" spaceY={2}>
             <InputGroup mb={'1'} startElement={<IoIosSearch />} w={'full'}>
-              <Input  size={'xs'} borderRadius={'sm'} outline={'none'} 
-              focusRing={'inside'} focusRingColor={'purple.400'} transition={'all'} placeholder="Search client for name"
+              <Input  outline={'none'} border={'1px solid'} borderColor={'gray.200'} transition={'all'} _focus={{shadow: 'lg'}} focusRing={'inside'} focusRingColor={'blue.600'} placeholder="Search client for name"
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
               />
@@ -43,7 +42,7 @@ const DialogSelectClients = () => {
                : noData ? 
                <Center color={'gray.500'}>There are no clients with this filter</Center>
                :
-                data?.map((client) => (
+               filteredData?.map((client) => (
                   <ClientToSelect key={client.id} client={client}/>
                 ))
               }

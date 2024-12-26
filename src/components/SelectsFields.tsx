@@ -11,10 +11,10 @@ const SelectsFields = ({register, errors}: Props) => {
   return (
     <Grid templateColumns={'repeat(2, 1fr)'} gap={3} w={'full'}>
         <GridItem colSpan={{base: 2, md: 1}}>
-            <Field label={<MyLabel>Priority</MyLabel>} invalid={!!errors.priority} errorText={errors.priority?.message}>
+            <Field required label={<MyLabel>Priority</MyLabel>} invalid={!!errors.priority} errorText={errors.priority?.message}>
                 <NativeSelectRoot {...register('priority')} size="md">
                     <InputGroup flex={1} startElement={<MdCategory size={'1.2em'}/>} w={'full'}>
-                      <NativeSelectField style={{ paddingLeft: '10em' }}>
+                      <NativeSelectField outline={'none'} border={'1px solid'} borderColor={'gray.200'} transition={'all'} _focus={{shadow: 'lg'}} focusRing={'inside'} focusRingColor={'blue.600'} style={{ paddingLeft: '10em' }}>
                         {prioritys.map( (priority) => (
                           <option key={priority.value} value={priority.value}>{priority.label}</option>
                         ))}
@@ -24,10 +24,10 @@ const SelectsFields = ({register, errors}: Props) => {
             </Field>
         </GridItem>
         <GridItem colSpan={{base: 2, md: 1}}>
-            <Field label={<MyLabel>Categorie</MyLabel>} invalid={!!errors.categorie} errorText={errors.categorie?.message}>
+            <Field required label={<MyLabel>Categorie</MyLabel>} invalid={!!errors.categorie} errorText={errors.categorie?.message}>
                 <NativeSelectRoot {...register('categorie')} size="md">
                 <InputGroup flex={1} startElement={<MdCategory size={'1.2em'}/>} w={'full'}>
-                    <NativeSelectField style={{ paddingLeft: '10em' }}>
+                    <NativeSelectField outline={'none'} border={'1px solid'} borderColor={'gray.200'} transition={'all'} _focus={{shadow: 'lg'}} focusRing={'inside'} focusRingColor={'blue.600'} style={{ paddingLeft: '10em' }}>
                       {categories.map( (categorie) => (
                         <option key={categorie.value} value={categorie.value}>{categorie.label}</option>
                       ))}

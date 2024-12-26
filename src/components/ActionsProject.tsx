@@ -1,4 +1,4 @@
-import { Flex, HStack, IconButton } from "@chakra-ui/react";
+import { Flex, IconButton } from "@chakra-ui/react";
 import { LuFolderPen } from "react-icons/lu";
 import { Tooltip } from "./ui/tooltip";
 import { Switch } from "./ui/switch"
@@ -38,17 +38,17 @@ const ActionsProject = ({id, active}: Props) => {
     }
 
   return (
-    <Flex flexDirection={'row'}
-        justifyContent={'end'} alignItems={'center'}>
-        <HStack>
+    <Flex flexDirection={{base: 'row', md: 'column'}} justifyContent={'space-between'} alignItems={{base: 'center', md: 'start'}}>
+       
+        <Flex w={'full'} justifyContent={'space-around'}>
             <Tooltip content={`You can be activate the project with this button`}>
-                <IconButton variant={'plain'} onClick={handleCheck}>
-                    <Switch checked={active}  thumbLabel={{ on: <HiCheck />, off: <HiX /> }}/>
+                <IconButton colorPalette={'green'} variant={'plain'} rounded={'full'} size={'sm'} onClick={handleCheck}>
+                    <Switch checked={active} size={'md'}  thumbLabel={{ on: <HiCheck />, off: <HiX /> }}/>
                 </IconButton>
             </Tooltip>
             <Tooltip content={`You can be edit the project with this button`}>
                 <Link to={`/editProject/${id}/`}>
-                    <IconButton variant={'subtle'} rounded={'full'} size={'lg'}>
+                    <IconButton variant={'ghost'} colorPalette={'blue'} rounded={'full'} size={'md'}>
                         <LuFolderPen />
                     </IconButton>
                 </Link>
@@ -56,7 +56,7 @@ const ActionsProject = ({id, active}: Props) => {
             <Tooltip content={`You can be Delete the project with this button`}>
                 <DialogDelete object="project" id={id}/>
             </Tooltip>
-        </HStack>
+        </Flex>
     </Flex>
   )
 }

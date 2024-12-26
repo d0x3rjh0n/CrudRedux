@@ -1,6 +1,7 @@
-import { Flex, GridItem } from "@chakra-ui/react"
+import { Flex, GridItem, Text } from "@chakra-ui/react"
 import MyLabel from "./MyLabel"
 import { ReactNode } from "react"
+import { StyledBox } from "./AcordionProject"
 
 interface Prop {
   label: string,
@@ -10,10 +11,12 @@ interface Prop {
 const FormProjectCell = ({ label, data }: Prop) => {
   return (
     <GridItem colSpan={{base:3, md: 1}}>
+      <StyledBox>
         <Flex flexDirection={{base: 'row', md: 'column'}} justifyContent={'space-between'} alignItems={{base: 'center', md: 'start'}}>
           <MyLabel>{label}</MyLabel>
-          {data}
+          <Text fontWeight={'light'}>{data}</Text>
         </Flex>
+        </StyledBox>
     </GridItem>
   )
 }

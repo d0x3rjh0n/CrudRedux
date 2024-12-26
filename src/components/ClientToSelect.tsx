@@ -18,13 +18,15 @@ const ClientToSelect = ({client} : Props) => {
 
   return (
     <CheckboxCard
-        defaultChecked={isInArray}
-        onChange={() => handleAdd()}
-        description={client.email}
-        label={client.name}
-        colorPalette="green"
-        variant={"subtle"}
-        cursor={'pointer'}
+      transition={'all'}
+      _hover={{bg: 'blue.100'}}
+      defaultChecked={isInArray}
+      onChange={() => handleAdd()}
+      description={client.email}
+      label={client.name}
+      colorPalette="blue"
+      variant={"subtle"}
+      cursor={'pointer'}
     />
   )
 }

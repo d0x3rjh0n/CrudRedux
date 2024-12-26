@@ -1,29 +1,41 @@
-
 import { Flex } from '@chakra-ui/react'
-import NavTabs from "./NavTabs";
-import NavDecoration from './NavDecoration';
-import NavBreacd from './NavBreacd';
-
+import { Tabs } from "@chakra-ui/react"
+import { LuFolder, LuUser } from "react-icons/lu"
+import { Link, useLocation } from 'react-router-dom'
+import { Button } from './ui/button'
+import { MdInfoOutline } from "react-icons/md";
+import { toaster } from './ui/toaster'
 
 const Header = () => {
+    const location = useLocation()
+    const activateTab = location.pathname === '/projects' ? 'projects' : 'clients'
     return (
-        <Flex
-            borderColor={'gray.300'}
-            shadow={'2xl'}
-            borderBottomRadius={'11px'}
-            w={'full'} bg={'whiteAlpha.100'}
-            gap={'3'} flexDirection={'column'}
-            justifyContent={'center'}
-            md={{ flexDirection: 'row', p: '3', justifyContent: 'space-between' }}
-            alignItems={'center'}>
-
-            <NavDecoration />
-
-            <Flex gap={'2'} w={'full'} justifyContent={'space-between'} lg={{ flexDirection: 'row', w: '3/5', alignItems: 'center' }} flexDirection={'column'} md={{ alignItems: 'end' }} alignItems={'center'}>
-                <NavBreacd />
-                <NavTabs />
-            </Flex>
-
+        <Flex w={{base: '90%', md: '80%', xl: '60%'}} justifyContent={'space-between'} alignItems={'center'}>
+            <Tabs.Root  defaultValue={activateTab} variant="plain">
+                <Tabs.List shadow={'md'} bg="bg.muted" rounded="l3" p="1">
+                    <Tabs.Trigger asChild value="clients">
+                        <Link to={'/'}>
+                            <LuUser />
+                            Clients
+                        </Link>
+                    </Tabs.Trigger>
+                    <Tabs.Trigger asChild value="projects">
+                        <Link to={'/projects'}>
+                        <LuFolder />
+                        Projects
+                        </Link>
+                    </Tabs.Trigger>
+                <Tabs.Indicator rounded="l2" />
+                </Tabs.List>
+            </Tabs.Root>
+            <Button variant={'plain'} onClick={() => {
+                toaster.success({
+                    title: 'Hello friend :)',
+                    description: "Contact me to get a quality software",
+                })
+            }}>
+                <MdInfoOutline/>
+            </Button>
         </Flex>
     )
 }

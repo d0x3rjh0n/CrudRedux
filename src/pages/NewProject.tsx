@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useForm } from 'react-hook-form'
-import {  Flex } from "@chakra-ui/react"
+import {  Flex, Heading } from "@chakra-ui/react"
 import {   generateId, schemaProject } from "@/helpers"
 import { Center, Textarea } from "@chakra-ui/react"
 import { Field } from "../components/ui/field"
@@ -88,27 +88,30 @@ const NewProject = () => {
   })
 
   return (
-    <form onSubmit={onSubmit}>
-      <Center py={6} px={6}>
-        <Flex border={'1px solid'} borderColor={'gray.200'} borderRadius={'md'} shadow={'md'} p={5} w={{base: '100%', lg: '70%', xl: '45%'}} flexDirection={'column'} gap={3}>
+      <Center h={{base: '4xl', md: '4xl'}} w={'full'} px={2}>
+        <Flex bg={'white'} border={'1px solid'} borderColor={'gray.200'} borderRadius={'md'} shadow={'md'} p={5} w={{base: '100%', lg: '70%', xl: '45%'}} flexDirection={'column'} gap={3}>
+          <Heading fontSize={'2xl'} fontWeight={'bold'}>
+            {id ? 'Edit Project Form' : 'New Project'}
+          </Heading>
+          <form onSubmit={onSubmit} style={{width: '100%'}}>
+            <Center flexDirection={'column'} w={'full'} alignItems={'start'} gap={4}>
+              <NameAndDateFields register={register} errors={errors}/>
 
-          <NameAndDateFields register={register} errors={errors}/>
+              <NumberFields register={register} errors={errors}/>
 
-          <NumberFields register={register} errors={errors}/>
+              <SelectsFields register={register} errors={errors}/>
 
-          <SelectsFields register={register} errors={errors}/>
+              <ClientsField/>
 
-          <ClientsField/>
-
-          <Field label={<MyLabel>Description</MyLabel>} invalid={!!errors.description} errorText={errors.description?.message}>
-              <Textarea rows={1} autoresize placeholder="description" {...register('description')} />
-          </Field>
-
-          <ActiveAndSubmit/>
-
+              <Field required label={<MyLabel>Description</MyLabel>} invalid={!!errors.description} errorText={errors.description?.message}>
+                  <Textarea outline={'none'} border={'1px solid'} borderColor={'gray.200'} transition={'all'} _focus={{shadow: 'lg'}} focusRing={'inside'} focusRingColor={'blue.600'}  rows={1} autoresize {...register('description')} />
+              </Field>
+              <ActiveAndSubmit id={id}/>
+            </Center>
+          </form>
         </Flex>
       </Center>
-    </form>
+    
 
   )
 }

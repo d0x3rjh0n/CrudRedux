@@ -22,10 +22,10 @@ const ClientInfo = ({ id }: IdClient) => {
       <DialogRoot size={'xs'} placement={'center'}>
         <DialogTrigger asChild>
           <IconButton 
-              size={'md'} 
+              size={'sm'} 
               variant={'ghost'} 
               colorPalette={'gray'} 
-              color={'purple.800'} 
+              color={'gray.400'} 
               aria-label="View" 
               rounded="full">
               <MdRemoveRedEye />
@@ -38,7 +38,7 @@ const ClientInfo = ({ id }: IdClient) => {
           (
             <>
             <DialogHeader>
-                <DialogTitle>Prepare Chakra V3</DialogTitle>
+                <DialogTitle>Client Information</DialogTitle>
             </DialogHeader>
             <DialogBody pb="8">
                 <DataListRoot orientation="horizontal">

@@ -1,15 +1,15 @@
 import { Button } from "./ui/button"
 import { DialogActionTrigger, DialogBody, DialogCloseTrigger, DialogContent, DialogHeader, DialogRoot, DialogTitle, DialogTrigger,} from "./ui/dialog"
-import { TbEditCircle } from "react-icons/tb";
 import { Field } from "./ui/field";
 import { NumberInputField, NumberInputRoot } from "./ui/number-input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup'
-import { Flex } from "@chakra-ui/react";
+import { Flex, IconButton } from "@chakra-ui/react";
 import { useUpdateProgressMutation } from "@/api/endpoints/projectEndpoints";
 import { useState } from "react";
 import { toaster } from "./ui/toaster";
+import { GiProgression } from "react-icons/gi";
 
 interface Props {
     id: string
@@ -38,7 +38,7 @@ const DialogProgress = ({id}: Props) => {
   return (
         <DialogRoot open={open} size={'xs'} placement={'center'} role="alertdialog">
             <DialogTrigger asChild>
-                <Button onClick={() => setOpen(true)} variant={"ghost"} size={'2xs'}><TbEditCircle/>Modify</Button>
+                <IconButton onClick={() => setOpen(true)} variant={"ghost"} colorPalette={'blue'} size={'xs'}><GiProgression/></IconButton>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
@@ -48,14 +48,14 @@ const DialogProgress = ({id}: Props) => {
                     <form onSubmit={onSubmit}>
                         <Field label="Enter Progress" invalid={!!errors.progress} errorText={errors.progress?.message}>
                             <NumberInputRoot width="200px">
-                                <NumberInputField {...register('progress')}/>
+                                <NumberInputField outline={'none'} border={'1px solid'} borderColor={'gray.200'} transition={'all'} _focus={{shadow: 'lg'}} focusRing={'inside'} focusRingColor={'blue.600'} {...register('progress')}/>
                             </NumberInputRoot>
                         </Field>
                         <Flex justifyContent={'space-between'} mt={5}>
                             <DialogActionTrigger asChild>
-                            <Button variant="subtle" colorPalette={'red'} onClick={() => setOpen(false)}>Cancel</Button>
+                            <Button variant="solid" colorPalette={'red'} onClick={() => setOpen(false)}>Cancel</Button>
                             </DialogActionTrigger>
-                            <Button type="submit" colorPalette="cyan">Update</Button>
+                            <Button type="submit" bg="blue.700">Update</Button>
                         </Flex>
                     </form>
                 </DialogBody>

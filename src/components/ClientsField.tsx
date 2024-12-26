@@ -11,7 +11,7 @@ const ClientsField = () => {
   const clientsSelect = useSelector(clientsArraySelector)
   const dispatch = useDispatch()
   return (
-    <Box spaceY={1}>
+    <Box spaceY={1} w={'full'}>
         <Flex>
             <Field label={<MyLabel>Clients</MyLabel>}/>
             <DialogSelectClients/>
@@ -19,7 +19,7 @@ const ClientsField = () => {
 
         <Flex w={'full'} border={'1px solid'} p={'5'} borderColor={'gray.200'} borderRadius={'md'} flexWrap={'wrap'} gap={4}>
           {clientsSelect.map(client => (
-            <Tag closable key={client.id} size={'lg'} borderRadius={'full'} onClick={() => dispatch(add(client))}>
+            <Tag colorPalette={'blue'} transition={'all'} cursor={'pointer'} fontWeight={'bold'} _hover={{colorPalette: 'red'}} closable key={client.id} size={'xl'} borderRadius={'full'} onClick={() => dispatch(add(client))}>
                 {client.name}
             </Tag>
           ))}

@@ -103,7 +103,7 @@
       "name": "Oscar",
       "age": 36,
       "email": "oscar@example.com",
-      "phone": "012345678"
+      "phone": "012345679"
     }
   ],
   "projects": [
@@ -124,8 +124,49 @@
       ],
       "description": "a",
       "priority": "low",
-      "progress": 48,
+      "progress": 2,
       "status": true
+    },
+    {
+      "id": "5rq44g4rfd4",
+      "clients": [
+        {
+          "id": "65c5rsqstj",
+          "name": "Bob",
+          "age": 30,
+          "email": "bob@example.com",
+          "phone": "987654321"
+        },
+        {
+          "id": "65c5rsqst1j",
+          "name": "Ethan",
+          "age": 22,
+          "email": "ethan@example.com",
+          "phone": "654321789"
+        },
+        {
+          "id": "h4mlk89vnv24",
+          "name": "Diana",
+          "age": 27,
+          "email": "diana@example.com",
+          "phone": "321654987"
+        },
+        {
+          "id": "h4mlk89vdnv4",
+          "name": "George",
+          "age": 29,
+          "email": "george@example.com",
+          "phone": "234567890"
+        }
+      ],
+      "capacity": 20,
+      "categorie": "marketing",
+      "budget": 2221,
+      "priority": "high",
+      "description": "Este es Certus dev",
+      "name": "Certus Dev",
+      "progress": 1,
+      "status": false
     }
   ]
 }
