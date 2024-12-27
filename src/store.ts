@@ -3,6 +3,8 @@ import modalReducer from './slices/modalSlice'
 import clientsReducer from './slices/clientsSlice'
 import paginationClientsReducer from './slices/paginationClientsSlice'
 import paginationProjectReducer from './slices/paginationProjectSlice'
+import clientReducer from './slices/clientSlice'
+import projectReducer from './slices/projectsSlice'
 import api from './api/apiSlice'
 
 export const store = configureStore({
@@ -12,6 +14,8 @@ export const store = configureStore({
         clientsArray: clientsReducer,
         paginationClients: paginationClientsReducer,
         paginationProjects: paginationProjectReducer,
+        clients: clientReducer,
+        projects: projectReducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware),
 })

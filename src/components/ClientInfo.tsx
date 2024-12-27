@@ -1,6 +1,6 @@
-import { IconButton, Separator, Spinner, VStack } from "@chakra-ui/react"
+import { IconButton, Separator, VStack } from "@chakra-ui/react";
 import { MdRemoveRedEye } from "react-icons/md";
-import { DataListItem, DataListRoot } from "./ui/data-list"
+import { DataListItem, DataListRoot } from "./ui/data-list";
 import {
   DialogBody,
   DialogCloseTrigger,
@@ -9,58 +9,53 @@ import {
   DialogRoot,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog"
-import { IdClient } from '../types/'
-import { useGetClientQuery } from "@/api/endpoints/clientEndpoints";
+} from "./ui/dialog";
+import { Client } from "@/types";
 
-const ClientInfo = ({ id }: IdClient) => {
-    const { data, isLoading} = useGetClientQuery(id, {
-        refetchOnMountOrArgChange: true
-    })
+interface Props {
+  data: Client;
+}
+const ClientInfo = ({ data }: Props) => {
   return (
     <VStack alignItems="start">
-      <DialogRoot size={'xs'} placement={'center'}>
+      <DialogRoot size={"xs"} placement={"center"}>
         <DialogTrigger asChild>
-          <IconButton 
-              size={'sm'} 
-              variant={'ghost'} 
-              colorPalette={'gray'} 
-              color={'gray.400'} 
-              aria-label="View" 
-              rounded="full">
-              <MdRemoveRedEye />
+          <IconButton
+            size={"sm"}
+            variant={"ghost"}
+            colorPalette={"gray"}
+            color={"gray.400"}
+            aria-label="View"
+            rounded="full"
+          >
+            <MdRemoveRedEye />
           </IconButton>
         </DialogTrigger>
         <DialogContent>
-            {isLoading ? (   
-                <Spinner color="blackAlpha.800" />)
-            :    
-          (
+          {
             <>
-            <DialogHeader>
+              <DialogHeader>
                 <DialogTitle>Client Information</DialogTitle>
-            </DialogHeader>
-            <DialogBody pb="8">
+              </DialogHeader>
+              <DialogBody pb="8">
                 <DataListRoot orientation="horizontal">
-                <DataListItem label="Name" value={data?.name}/>
-                <Separator/>
-                <DataListItem label="Age" value={data?.age} />
-                <Separator/>
-                <DataListItem label="Email" value={data?.email} />
-                <Separator/>
-                <DataListItem label="Phone" value={data?.phone} />
-                <Separator/>
+                  <DataListItem label="Name" value={data?.name} />
+                  <Separator />
+                  <DataListItem label="Age" value={data?.age} />
+                  <Separator />
+                  <DataListItem label="Email" value={data?.email} />
+                  <Separator />
+                  <DataListItem label="Phone" value={data?.phone} />
+                  <Separator />
                 </DataListRoot>
-            </DialogBody>
+              </DialogBody>
             </>
-          )
-           }
+          }
           <DialogCloseTrigger />
-
         </DialogContent>
       </DialogRoot>
     </VStack>
-  )
-}
+  );
+};
 
-export default ClientInfo
+export default ClientInfo;
